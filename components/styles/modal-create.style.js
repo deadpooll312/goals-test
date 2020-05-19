@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     backgroundColor: white,
-    height: Dimensions.get("window").height - 68,
+    height: Dimensions.get("window").height - 120,
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
     paddingTop: 28,

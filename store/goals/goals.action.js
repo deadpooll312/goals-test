@@ -11,4 +11,13 @@ export class GoalsAction {
       return item;
     });
   }
+
+  updateIndex(index) {
+    this.index = index;
+  }
+
+  getActiveItem() {
+    return this.list[this.index];
+  }
+
 }

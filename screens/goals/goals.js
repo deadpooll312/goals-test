@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { View, Text, ScrollView, Dimensions, TouchableOpacity, Image } from "react-native";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
@@ -8,10 +8,10 @@ import { PlusIcon } from "../../components/icons";
 import { GoalCard } from "../../components/goal-card";
 import PlusIconBig from "../../assets/plus.png";
 
-export const GoalsScreen = inject("store")(observer(({ store, modalOpen }) => {
+export const GoalsScreen = inject("store")(observer(({ store, modalOpen, updateModal }) => {
   const { goals } = store;
   const list = toJS(goals.list);
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -31,6 +31,20 @@ export const GoalsScreen = inject("store")(observer(({ store, modalOpen }) => {
           snapToAlignment="left"
           overScrollMode="never"
           scroll
+          onScrollEndDrag={e => {
+            console.log('1 =', e.nativeEvent.contentOffset.x);
+          }}
+          onScroll={e => {
+            const x = e.nativeEvent.contentOffset.x;
+            const width = Dimensions.get("window").width / 3 * 2 + 7;
+            let index;
+            if (!x) {
+              index = 0;
+            } else {
+              index = Math.round(x / width);
+            }
+            store.goals.updateIndex(index);
+          }}
           contentInset={{
             top: 0,
             left: 0,
@@ -53,7 +67,7 @@ export const GoalsScreen = inject("store")(observer(({ store, modalOpen }) => {
           })}
         </ScrollView>
       </View>
-      <TouchableOpacity style={styles.bigButton}>
+      <TouchableOpacity onPress={updateModal} style={styles.bigButton}>
         <Image style={styles.bigButtonIcon} source={PlusIconBig} />
       </TouchableOpacity>
     </View>

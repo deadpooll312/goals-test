@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Provider } from "mobx-react";
 // local files
 import { GoalsScreen } from "./screens/goals/goals";
@@ -53,11 +53,16 @@ export default function App() {
     newState.goal = text;
     setState(newState);
   };
+
+  const updateModal = useCallback(() => {
+    setState(store.goals.getActiveItem());
+    setModalVisible(true);
+  }, []);
   
   return (
     <Provider store={store}>
       <React.Fragment>
-        <GoalsScreen modalOpen={() => setModalVisible(true)} />
+        <GoalsScreen updateModal={updateModal} modalOpen={() => setModalVisible(true)} />
         <DatepickerComponent
           onCancelPress={onCancelPress}
           date={state.until}

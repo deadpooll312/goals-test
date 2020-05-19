@@ -53,6 +53,9 @@ export const ModalCreate = inject("store")(observer(props => {
               <TouchableOpacity onPress={onGoalCreate}>
                 <Text style={styles.doneButton}>Done</Text>
               </TouchableOpacity>
+              <TouchableOpacity onPress={modalClose}>
+                <Text style={styles.doneButton}>Cancel</Text>
+              </TouchableOpacity>
             </View>
             <View style={[styles.row, styles.inputContainer]}>
               <TextInput

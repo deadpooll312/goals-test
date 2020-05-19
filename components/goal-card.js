@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 // local files
 import styles from "./styles/goal-card.style";
